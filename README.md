@@ -90,27 +90,128 @@ A solução segue uma arquitetura em camadas simples com separação clara entre
 - Migrations já estão presentes em `Data/Migrations` — rever antes de recriar novas migrations para evitar conflitos.
 - Configurações de produção: `UseHttpsRedirection` é aplicado somente fora de `Development` para evitar problemas de CORS em desenvolvimento.
 
-## Testes e validação
+---
 
-- Não há projeto de testes incluso no workspace atual. Recomenda-se criar testes unitários para:
-  - Validações de `Cpf`, `Cnpj` e `Cep`.
-  - Serviços (`Server/*Service`) garantindo regras de negócio.
-  - Repositórios com um banco em memória (`InMemoryDatabase`) do EF Core.
+## Projeto Frontend
 
-## Como contribuir / próximas melhorias
+O frontend é uma aplicação **Angular 18** que consome a API REST desenvolvida em .NET. A interface permite o gerenciamento completo de empresas e fornecedores, incluindo o cadastro, listagem, edição e exclusão de registros, além do gerenciamento de relacionamentos entre empresas e fornecedores.
 
-- Implementar autenticação e autorização (ex.: JWT) para proteger endpoints.
-- Adicionar logs estruturados (ex.: `Serilog`).
-- Implementar DTOs mais completos e AutoMapper para mapeamento entre `Model` e `Dto`.
-- Criar testes automatizados (unit/integration).
-- Restringir CORS em produção e adicionar políticas de rate limiting se necessário.
+### Tecnologias e ferramentas
 
-## Contato
+- **Angular 18**: Framework principal para desenvolvimento da SPA (Single Page Application)
+- **TypeScript 5.4**: Linguagem de programação
+- **RxJS 7.8**: Biblioteca para programação reativa e gerenciamento de observables
+- **Tailwind CSS 3.4**: Framework CSS utility-first para estilização
+- **Angular Router**: Gerenciamento de rotas e navegação
+- **Angular Forms**: Formulários reativos e validações
 
-Para dúvidas sobre o código ou arquitetura, consulte os arquivos de cada projeto:
+### Estrutura do projeto Frontend
 
-- `Api/Program.cs` — configuração da aplicação e DI
-- `Data/AppDbContext.cs` — mapeamento das entidades
-- `Server/*Service.cs` — regras de negócio e validações
-- `Intf/*` — contratos, modelos e DTOs
+```
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── core/           # Módulos e serviços principais da aplicação
+│   │   ├── features/        # Módulos de funcionalidades
+│   │   │   ├── empresas/   # Componentes de gerenciamento de empresas
+│   │   │   └── fornecedores/ # Componentes de gerenciamento de fornecedores
+│   │   ├── models/          # Interfaces e modelos TypeScript
+│   │   ├── services/        # Serviços de comunicação com a API
+│   │   │   ├── empresa.service.ts
+│   │   │   ├── fornecedor.service.ts
+│   │   │   ├── empresa-fornecedor.service.ts
+│   │   │   └── cep-validator.service.ts
+│   │   ├── shared/          # Componentes e recursos compartilhados
+│   │   ├── app.component.* # Componente raiz da aplicação
+│   │   └── app.module.ts   # Módulo principal
+│   ├── styles.css          # Estilos globais (configuração Tailwind)
+│   ├── index.html          # Página HTML principal
+│   └── main.ts             # Ponto de entrada da aplicação
+├── angular.json            # Configuração do Angular CLI
+├── package.json            # Dependências e scripts npm
+├── tailwind.config.js      # Configuração do Tailwind CSS
+└── tsconfig.json           # Configuração do TypeScript
+```
 
+### Funcionalidades principais
+
+1. **Gerenciamento de Empresas**
+   - Cadastro de novas empresas com validação de CNPJ
+   - Listagem com paginação
+   - Edição de dados cadastrais
+   - Exclusão de empresas
+   - Associação e desassociação de fornecedores
+
+2. **Gerenciamento de Fornecedores**
+   - Cadastro de fornecedores pessoa física (CPF) ou jurídica (CNPJ)
+   - Validação de CPF/CNPJ e RG
+   - Listagem com paginação e filtros
+   - Edição de dados cadastrais
+   - Exclusão de fornecedores
+   - Visualização de empresas associadas
+
+3. **Validações**
+   - Validação de CEP com integração à API externa
+   - Validação de CPF e CNPJ no frontend
+   - Validação de campos obrigatórios
+   - Validação de formatos de e-mail
+
+### Serviços e comunicação com API
+
+Os serviços Angular (`*Service`) encapsulam toda a comunicação HTTP com a API backend:
+
+- `EmpresaService`: operações CRUD de empresas
+- `FornecedorService`: operações CRUD de fornecedores
+- `EmpresaFornecedorService`: gerenciamento de relacionamentos
+- `CepValidatorService`: validação e busca de endereços por CEP
+
+Todos os serviços utilizam `HttpClient` do Angular e retornam `Observables` para trabalhar com programação reativa.
+
+### Configuração e execução do Frontend
+
+1. **Instalar dependências:**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Executar em modo de desenvolvimento:**
+   ```bash
+   npm start
+   ```
+   A aplicação estará disponível em `http://localhost:4200`
+
+3. **Build para produção:**
+   ```bash
+   npm run build
+   ```
+   Os arquivos compilados estarão em `dist/frontend`
+
+4. **Build com watch (desenvolvimento):**
+   ```bash
+   npm run watch
+   ```
+
+### Configuração da API
+
+O frontend está configurado para se comunicar com a API backend. Certifique-se de que:
+- A API está executando (geralmente em `https://localhost:5001` ou `http://localhost:5000`)
+- As configurações de CORS na API permitem requisições do frontend
+- A URL base da API está corretamente configurada nos serviços Angular
+
+### Estilização com Tailwind CSS
+
+O projeto utiliza Tailwind CSS para estilização, oferecendo:
+- Design responsivo e moderno
+- Utility classes para desenvolvimento rápido
+- Customização através do arquivo `tailwind.config.js`
+- Consistência visual em todos os componentes
+
+### Boas práticas implementadas
+
+- **Separação de responsabilidades**: componentes, serviços e modelos bem definidos
+- **Lazy Loading**: carregamento sob demanda de módulos de funcionalidades
+- **Reactive Forms**: formulários reativos com validações robustas
+- **Observables**: uso de RxJS para gerenciamento assíncrono
+- **TypeScript**: tipagem forte para maior segurança e manutenibilidade
+- **Componentização**: componentes reutilizáveis na pasta `shared`
