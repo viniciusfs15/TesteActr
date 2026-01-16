@@ -1,0 +1,10 @@
+<div class="fixed top-4 right-4 z-50 space-y-2">
+  <div *ngFor="let toast of toasts" 
+       [class]="'text-white px-6 py-4 rounded-lg shadow-lg flex items-center justify-between min-w-80 animate-slide-in ' + getToastClass(toast.type)">
+    <span class="mr-4">{{ toast.message }}</span>
+    <button (click)="removeToast(toast.id)" 
+            class="text-white hover:text-gray-200 font-bold text-xl leading-none">
+      &times;
+    </button>
+  </div>
+</div>

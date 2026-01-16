@@ -1,0 +1,11 @@
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\bin\Debug\net8.0\Intf.deps.json
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\bin\Debug\net8.0\Intf.dll
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\bin\Debug\net8.0\Intf.pdb
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.AssemblyInfoInputs.cache
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.AssemblyInfo.cs
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.csproj.CoreCompileInputs.cache
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.dll
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\refint\Intf.dll
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\Intf.pdb
+D:\Projetos\TesteDesenvolvedor\Accenture\Intf\obj\Debug\net8.0\ref\Intf.dll
